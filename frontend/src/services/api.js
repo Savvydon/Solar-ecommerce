@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://solar-ecommerce-ciim.onrender.com';
 export function token(){ return localStorage.getItem('se_token'); }
 export async function api(path, options={}){
   const headers={...(options.body?{'Content-Type':'application/json'}:{}),...(token()?{Authorization:`Bearer ${token()}`}:{ }),...(options.headers||{})};

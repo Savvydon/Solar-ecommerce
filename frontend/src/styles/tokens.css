@@ -1,0 +1,15 @@
+/* Design tokens shared by storefront and administration screens. */
+:root {
+  color-scheme: light;
+  --se-focus-ring: 0 0 0 3px rgba(36, 153, 93, 0.28);
+}
+:root[data-theme="dark"] { color-scheme: dark; }
+:focus-visible { outline: none; box-shadow: var(--se-focus-ring); }
+.empty-state { padding: 2rem; text-align: center; }
+.form-field { display: grid; gap: .45rem; }
+.field-hint { opacity: .7; }
+.field-error { color: #c62828; }
+.has-error input, .has-error textarea, .has-error select { border-color: #c62828; }
+.cart-summary { display: grid; gap: .85rem; }
+.cart-summary > div { display: flex; justify-content: space-between; gap: 1rem; }
+.cart-summary-total { padding-top: .8rem; border-top: 1px solid var(--border, #ddd); }

@@ -1,1 +1,9 @@
-Reusable UI components are being extracted here. ProductCard.jsx is the shared catalogue card; page, layout, cart, and admin components can be separated further as API integration is added. App.jsx retains routing and page orchestration for this iteration.
+# Frontend components
+
+- `common/`: shared loading and empty states.
+- `layout/`: global header and footer.
+- `products/`: product catalogue card.
+- `cart/`: reusable cart/order summary.
+- `forms/`: accessible form field wrapper.
+
+Keep components focused on one UI responsibility and move API calls or reusable business logic into services/hooks.

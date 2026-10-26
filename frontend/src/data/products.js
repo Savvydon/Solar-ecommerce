@@ -1,3 +1,9 @@
+import solarPanelImage from "../assets/products/solar-panel.svg";
+import inverterImage from "../assets/products/inverter.svg";
+import batteryImage from "../assets/products/battery.svg";
+import solarKitImage from "../assets/products/solar-kit.svg";
+import accessoriesImage from "../assets/products/accessories.svg";
+
 export const categories = ["All products", "Solar panels", "Inverters", "Batteries", "Solar kits", "Accessories"];
 
 const seedProducts = [
@@ -13,7 +19,7 @@ const seedProducts = [
     reviews: 24,
     stock: 18,
     badge: "Best seller",
-    image: "/src/assets/products/solar-panel.svg",
+    image: solarPanelImage,
     description: "A high-efficiency monocrystalline panel designed for residential and commercial solar installations. A dependable option for building a scalable solar array.",
     specs: { "Rated power": "550 W", "Cell type": "Monocrystalline", "Application": "Residential / Commercial", "Warranty": "Product warranty varies by supplier" }
   },
@@ -29,7 +35,7 @@ const seedProducts = [
     reviews: 18,
     stock: 9,
     badge: "Popular",
-    image: "/src/assets/products/inverter.svg",
+    image: inverterImage,
     description: "A hybrid inverter for solar, battery and grid-connected energy setups. Confirm voltage, battery compatibility and installation requirements before purchase.",
     specs: { "Rated output": "5 kW", "Type": "Hybrid", "Use": "Home / Small business", "Compatibility": "Confirm against exact system configuration" }
   },
@@ -45,7 +51,7 @@ const seedProducts = [
     reviews: 31,
     stock: 7,
     badge: "Premium",
-    image: "/src/assets/products/battery.svg",
+    image: batteryImage,
     description: "A compact energy-storage option for suitable solar backup systems. Check voltage, BMS communication, charge limits and inverter compatibility before installation.",
     specs: { "Nominal energy": "5 kWh", "Chemistry": "Confirm with supplier", "Application": "Solar energy storage", "Installation": "Qualified installer recommended" }
   },
@@ -61,7 +67,7 @@ const seedProducts = [
     reviews: 12,
     stock: 5,
     badge: "Bundle deal",
-    image: "/src/assets/products/solar-kit.svg",
+    image: solarKitImage,
     description: "A starter bundle concept for customers exploring home solar. Confirm the exact included components and expected load capacity before ordering.",
     specs: { "Bundle type": "Home starter kit", "Included items": "See confirmed supplier package", "Sizing": "Depends on appliances and usage", "Installation": "Site assessment recommended" }
   },
@@ -77,7 +83,7 @@ const seedProducts = [
     reviews: 9,
     stock: 14,
     badge: "",
-    image: "/src/assets/products/accessories.svg",
+    image: accessoriesImage,
     description: "A charge controller category example. Confirm current rating, maximum PV input voltage and supported battery chemistry for the exact model.",
     specs: { "Type": "MPPT", "Rated current": "Confirm exact model", "PV voltage": "Confirm datasheet", "Battery support": "Confirm datasheet" }
   },
@@ -93,7 +99,7 @@ const seedProducts = [
     reviews: 6,
     stock: 30,
     badge: "",
-    image: "/src/assets/products/accessories.svg",
+    image: accessoriesImage,
     description: "Solar cable accessory listing. Select the appropriate conductor size, insulation, voltage rating and length for the installation.",
     specs: { "Product type": "Solar DC cable", "Size": "Confirm listing variant", "Length": "Confirm selected option", "Use": "Solar DC wiring" }
   }

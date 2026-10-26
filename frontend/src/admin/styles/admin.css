@@ -1,0 +1,14 @@
+/* Admin-only layout refinements; shared colors and typography remain in styles.css. */
+.admin-page { min-width: 0; }
+.admin-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.admin-table-wrap { max-width: 100%; overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th, .admin-table td { vertical-align: top; }
+.admin-table td small { display: block; margin-top: .25rem; opacity: .72; }
+.admin-edit-form { margin-top: 1.5rem; }
+.admin-edit-form input, .admin-edit-form textarea, .admin-table select { max-width: 100%; }
+@media (max-width: 640px) {
+  .admin-heading { align-items: flex-start; flex-direction: column; }
+  .admin-tabs { overflow-x: auto; }
+  .admin-table { min-width: 680px; }
+}

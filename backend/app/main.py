@@ -1,12 +1,15 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from app.core.config import settings
 from app.database import Base, engine, SessionLocal
 from app import models
 from app.models import User, Product
 from app.services.security import hash_password
 from app.routes import auth, products, orders, quotes, payments, admin
+from app.routes import catalog_admin
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,6 +34,11 @@ async def lifespan(app: FastAPI):
     yield
 app=FastAPI(title='Savvy Energy API',version='1.0.0',description='Solar equipment shop, orders, quote requests and payments',lifespan=lifespan)
 app.add_middleware(CORSMiddleware,allow_origins=settings.allowed_origins,allow_credentials=True,allow_methods=['*'],allow_headers=['*'])
-for r in [auth.router,products.router,orders.router,quotes.router,payments.router,admin.router]: app.include_router(r)
+for r in [auth.router, products.router, orders.router, quotes.router, payments.router, admin.router, catalog_admin.router]:
+    app.include_router(r)
+
+UPLOAD_DIR = Path(settings.upload_dir).resolve()
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 @app.get('/api/health')
 def health(): return {'status':'ok','service':'Savvy Energy API'}

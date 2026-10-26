@@ -1,7 +1,32 @@
-import {Routes,Route,Navigate} from 'react-router-dom';
-import {ThemeProvider} from './context/ThemeContext';import {AuthProvider,useAuth} from './context/AuthContext';import {CartProvider} from './context/CartContext';
-import Header from './components/layout/Header';import Footer from './components/layout/Footer';
-import HomePage from './pages/HomePage';import ShopPage from './pages/ShopPage';import ProductPage from './pages/ProductPage';import LoginPage from './pages/LoginPage';import CartPage from './pages/CartPage';import CheckoutPage from './pages/CheckoutPage';import QuotePage from './pages/QuotePage';import AdminPage from './pages/AdminPage';import AccountPage from './pages/AccountPage';import PaymentReturnPage from './pages/PaymentReturnPage';import {AboutPage,SolutionsPage} from './pages/InfoPage';
-function AccountRoute(){const {user,loading}=useAuth();if(loading)return <main className="page-shell">Loading account…</main>;return user?<AccountPage/>:<Navigate to="/login" replace/>}
-function Shell(){return <><Header/><Routes><Route path="/" element={<HomePage/>}/><Route path="/shop" element={<ShopPage/>}/><Route path="/product/:id" element={<ProductPage/>}/><Route path="/login" element={<LoginPage/>}/><Route path="/cart" element={<CartPage/>}/><Route path="/checkout" element={<CheckoutPage/>}/><Route path="/quote" element={<QuotePage/>}/><Route path="/admin" element={<AdminPage/>}/><Route path="/account" element={<AccountRoute/>}/><Route path="/payment/return" element={<PaymentReturnPage/>}/><Route path="/about" element={<AboutPage/>}/><Route path="/solutions" element={<SolutionsPage/>}/><Route path="*" element={<Navigate to="/" replace/>}/></Routes><Footer/></>}
-export default function App(){return <ThemeProvider><AuthProvider><CartProvider><Shell/></CartProvider></AuthProvider></ThemeProvider>}
+import { useLocation } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import AppRoutes from "./routes/AppRoutes";
+
+function AppShell() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  if (isAdminRoute) return <AppRoutes />;
+  return (
+    <>
+      <Header />
+      <AppRoutes />
+      <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          <AppShell />
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
+  );
+}

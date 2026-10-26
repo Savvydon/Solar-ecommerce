@@ -6,6 +6,11 @@ from app.models import Product
 from app.schemas.schemas import ProductIn, ProductOut
 from app.dependencies import admin_user
 router = APIRouter(prefix="/api/products", tags=["Products"])
+
+@router.get("/categories")
+def list_product_categories(db: Session = Depends(get_db)):
+    values = db.scalars(select(Product.category).where(Product.is_active.is_(True)).distinct().order_by(Product.category)).all()
+    return [value for value in values if value]
 @router.get('')
 def list_products(q: str | None = None, category: str | None = None, offset: int = Query(0, ge=0), limit: int = Query(24, ge=1, le=100), db: Session = Depends(get_db)):
     stmt = select(Product).where(Product.is_active.is_(True))

@@ -1,0 +1,1 @@
+Reusable UI components are being extracted here. ProductCard.jsx is the shared catalogue card; page, layout, cart, and admin components can be separated further as API integration is added. App.jsx retains routing and page orchestration for this iteration.

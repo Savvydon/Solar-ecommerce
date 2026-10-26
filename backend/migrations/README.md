@@ -1,0 +1,1 @@
+Initialize Alembic here before production schema changes (`alembic init migrations`). The starter uses SQLAlchemy metadata creation for local bootstrapping; use versioned migrations for deployed environments.

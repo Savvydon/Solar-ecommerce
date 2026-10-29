@@ -60,7 +60,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "A starter bundle for a small home system. Final sizing should be professionally assessed.",
         "price": 2350000,
-        "image_url": "/products/Home Solar Starter kit.jpg",
+        "image_url": "/products/Home Solar Starter Kit.jpg",
         "stock": 5,
     },
     {
@@ -210,7 +210,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "Bundle concept for customers planning a small solar installation. Final configuration needs assessment.",
         "price": 980000,
-        "image_url": "/products/Home Solar Starter kit.jpg",
+        "image_url": "/products/solar kit2.jpg",
         "stock": 5,
     },
 ]

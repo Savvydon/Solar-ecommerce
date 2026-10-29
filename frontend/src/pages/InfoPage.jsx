@@ -1,3 +1,94 @@
-import {Link} from 'react-router-dom';import {ArrowRight,Sun,ShieldCheck,Leaf} from 'lucide-react';
-export function AboutPage(){return <main className="page-shell info-page"><p className="eyebrow">ABOUT SAVVY ENERGY</p><h1>Making clean energy<br/><em>easier to choose.</em></h1><p>We help households, installers and businesses explore solar equipment and energy solutions with clear product information and helpful support.</p><div className="info-values"><div><Sun/><h3>Practical choices</h3><p>Equipment options for different energy needs.</p></div><div><ShieldCheck/><h3>Helpful guidance</h3><p>Request a quote when your project needs a closer look.</p></div><div><Leaf/><h3>Future-minded</h3><p>Supporting the shift toward more resilient energy.</p></div></div><Link className="button primary" to="/shop">Explore the catalogue <ArrowRight/></Link></main>}
-export function SolutionsPage(){return <main className="page-shell info-page"><p className="eyebrow">ENERGY SOLUTIONS</p><h1>Start with your needs.<br/><em>Build from there.</em></h1><p>Every property has a different load profile. We can help you explore equipment for home backup, small business continuity or a larger solar installation.</p><div className="solution-cards"><article><span>01</span><h3>Home backup</h3><p>Explore panels, inverters and storage to support essential household loads.</p></article><article><span>02</span><h3>Business power</h3><p>Plan around equipment demand, operating hours and backup priorities.</p></article><article><span>03</span><h3>Solar project</h3><p>Share your requirements to discuss a suitable configuration and quotation.</p></article></div><Link className="button primary" to="/quote">Discuss your project <ArrowRight/></Link></main>}
+import { Link } from 'react-router-dom';
+import { ArrowRight, Sun, ShieldCheck, Leaf } from 'lucide-react';
+
+/* ==========================================================================
+   1. About Page Component
+   ========================================================================== */
+export function AboutPage() {
+  return (
+    <main className="page-shell info-page">
+      <p className="eyebrow">ABOUT SAVVY ENERGY</p>
+      
+      <h1>
+        Making clean energy<br />
+        <em>easier to choose.</em>
+      </h1>
+      
+      <p>
+        We help households, installers and businesses explore solar equipment and energy solutions 
+        with clear product information and helpful support.
+      </p>
+
+      {/* Core Company Values Grid */}
+      <div className="info-values">
+        <div>
+          <Sun />
+          <h3>Practical choices</h3>
+          <p>Equipment options for different energy needs.</p>
+        </div>
+
+        <div>
+          <ShieldCheck />
+          <h3>Helpful guidance</h3>
+          <p>Request a quote when your project needs a closer look.</p>
+        </div>
+
+        <div>
+          <Leaf />
+          <h3>Future-minded</h3>
+          <p>Supporting the shift toward more resilient energy.</p>
+        </div>
+      </div>
+
+      <Link className="button primary" to="/shop">
+        Explore the catalogue <ArrowRight />
+      </Link>
+    </main>
+  );
+}
+
+/* ==========================================================================
+   2. Solutions Page Component
+   ========================================================================== */
+export function SolutionsPage() {
+  return (
+    <main className="page-shell info-page">
+      <p className="eyebrow">ENERGY SOLUTIONS</p>
+      
+      <h1>
+        Start with your needs.<br />
+        <em>Build from there.</em>
+      </h1>
+      
+      <p>
+        Every property has a different load profile. We can help you explore equipment 
+        for home backup, small business continuity or a larger solar installation.
+      </p>
+
+      {/* Categorized Tier Solutions Panel */}
+      <div className="solution-cards">
+        <article>
+          <span>01</span>
+          <h3>Home backup</h3>
+          <p>Explore panels, inverters and storage to support essential household loads.</p>
+        </article>
+
+        <article>
+          <span>02</span>
+          <h3>Business power</h3>
+          <p>Plan around equipment demand, operating hours and backup priorities.</p>
+        </article>
+
+        <article>
+          <span>03</span>
+          <h3>Solar project</h3>
+          <p>Share your requirements to discuss a suitable configuration and quotation.</p>
+        </article>
+      </div>
+
+      <Link className="button primary" to="/quote">
+        Discuss your project <ArrowRight />
+      </Link>
+    </main>
+  );
+}

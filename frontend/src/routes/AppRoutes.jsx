@@ -4,6 +4,7 @@ import AccountPage from "../pages/AccountPage";
 import AdminPage from "../admin/pages/AdminPage";
 import AdminLoginPage from "../admin/pages/AdminLoginPage";
 import CartPage from "../pages/CartPage";
+import CategoryPage from "../pages/CategoryPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import HomePage from "../pages/HomePage";
 import { AboutPage, SolutionsPage } from "../pages/InfoPage";
@@ -25,6 +26,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/shop" element={<ShopPage />} />
+      <Route path="/shop/category/:categorySlug" element={<CategoryPage />} />
       <Route path="/product/:id" element={<ProductPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cart" element={<CartPage />} />

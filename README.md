@@ -100,3 +100,17 @@ Use one import per line, descriptive names, consistent indentation, small compon
 ## Validation status for this revision
 
 Python source compilation was checked. Full frontend production build and live backend integration tests still need to be run in an environment where npm packages and all backend requirements can be installed. The current work environment could not complete npm dependency installation due to registry/cache availability, and backend API tests could not start because the `python-jose` dependency was not installed in the test environment.
+
+## Starter catalogue note
+
+The backend startup routine adds missing starter product records until the sample catalogue contains 20 distinct model/SKU entries. It does not overwrite or delete existing product records. The extra starter product names, descriptions, stock counts and NGN prices are illustrative sample values; review them in the admin dashboard before accepting real customer orders. Existing records with matching model codes are left untouched.
+
+The storefront initially requests 20 products and offers a “Show 20 more” control when the API reports additional products. This is load-more pagination rather than numbered page links.
+
+
+## Category catalogue updates
+
+- The storefront Shop page groups active products by category and displays up to four products per category.
+- Each category's **Show more** link opens `/shop/category/<category-slug>`.
+- Category pages support search, brand, price-range, stock-availability and sorting filters, with numbered pagination of 30 products per page.
+- The FastAPI products endpoint accepts `brand`, `min_price`, `max_price`, `in_stock`, `sort_by`, and `sort_order` filters. A `/api/products/brands` endpoint supplies category-specific brand options.

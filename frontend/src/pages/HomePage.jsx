@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Leaf, ShieldCheck, Sun, Truck, Zap } from "lucide-react";
 import { api } from "../services/api";
 import ProductCard from "../components/products/ProductCard";
-import solarPanelImage from "../assets/products/solar-panel.svg";
+import solarPanelImage from "../assets/products/solar-panel.png";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);

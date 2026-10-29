@@ -1,8 +1,8 @@
-import solarPanelImage from "../assets/products/solar-panel.svg";
-import inverterImage from "../assets/products/inverter.svg";
-import batteryImage from "../assets/products/battery.svg";
-import solarKitImage from "../assets/products/solar-kit.svg";
-import accessoriesImage from "../assets/products/accessories.svg";
+import solarPanelImage from "../assets/products/solar-panel.png";
+import inverterImage from "../assets/products/inverter1.jpg";
+import batteryImage from "../assets/products/battery.jpg";
+import solarKitImage from "../assets/products/MPPT Charge Controller 60A.jpg";
+import accessoriesImage from "../assets/products/solar-accessories.png";
 
 export const categories = ["All products", "Solar panels", "Inverters", "Batteries", "Solar kits", "Accessories"];
 

@@ -1,4 +1,90 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Heart, ShoppingBag } from "lucide-react";
-const money = value => new Intl.NumberFormat("en-NG", {style:"currency",currency:"NGN",maximumFractionDigits:0}).format(value);
-export default function ProductCard({ product, addToCart, onQuickView }) { return <article className="product-card"><div className="product-image-wrap">{product.badge && <span className={`product-badge ${product.badge === "Best seller" ? "badge-dark" : ""}`}>{product.badge}</span>}<button className="wishlist-button" aria-label={`Save ${product.name} to wishlist`} onClick={() => alert("Wishlist will be connected to customer accounts in a later phase.")}><Heart size={18}/></button><Link to={`/products/${product.id}`} className="product-image-link"><img src={product.image} alt={product.name} loading="lazy"/></Link></div><div className="product-info"><span className="product-category">{product.category}</span><Link to={`/products/${product.id}`} className="product-name">{product.name}</Link><span className="product-model">{product.brand} · {product.model}</span><div className="rating"><span>★★★★★</span><small>{product.rating} ({product.reviews})</small></div><div className="price-row"><strong>{money(product.price)}</strong>{product.oldPrice && <del>{money(product.oldPrice)}</del>}</div><div className="stock-note">{product.stock > 0 ? `${product.stock} available` : "Out of stock"}</div><div className="product-card-actions"><button className="button button-primary button-small" disabled={product.stock < 1} onClick={() => addToCart(product,1)}><ShoppingBag size={15}/> Add to cart</button><button className="quick-view" onClick={() => onQuickView(product)} aria-label={`Quick view ${product.name}`}><ArrowUpRight size={18}/></button></div></div></article>; }
+
+// Currency formatter utility for Nigerian Naira (NGN)
+const money = (value) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+export default function ProductCard({ product, addToCart, onQuickView }) {
+  return (
+    <article className="product-card">
+      
+      {/* Media Wrapper Area (Badge, Wishlist, Image) */}
+      <div className="product-image-wrap">
+        {product.badge && (
+          <span className={`product-badge ${product.badge === "Best seller" ? "badge-dark" : ""}`}>
+            {product.badge}
+          </span>
+        )}
+        
+        <button
+          className="wishlist-button"
+          aria-label={`Save ${product.name} to wishlist`}
+          onClick={() => alert("Wishlist will be connected to customer accounts in a later phase.")}
+        >
+          <Heart size={18} />
+        </button>
+        
+        <Link to={`/products/${product.id}`} className="product-image-link">
+          <img src={product.image} alt={product.name} loading="lazy" />
+        </Link>
+      </div>
+
+      {/* Content & Details Panel */}
+      <div className="product-info">
+        <span className="product-category">{product.category}</span>
+        
+        <Link to={`/products/${product.id}`} className="product-name">
+          {product.name}
+        </Link>
+        
+        <span className="product-model">
+          {product.brand} · {product.model}
+        </span>
+
+        {/* Rating Breakdown */}
+        <div className="rating">
+          <span>★★★★★</span>
+          <small>
+            {product.rating} ({product.reviews})
+          </small>
+        </div>
+
+        {/* Pricing Layout with Potential Discounts */}
+        <div className="price-row">
+          <strong>{money(product.price)}</strong>
+          {product.oldPrice && <del>{money(product.oldPrice)}</del>}
+        </div>
+
+        {/* Stock Level Note */}
+        <div className="stock-note">
+          {product.stock > 0 ? `${product.stock} available` : "Out of stock"}
+        </div>
+
+        {/* Action Button Block */}
+        <div className="product-card-actions">
+          <button
+            className="button button-primary button-small"
+            disabled={product.stock < 1}
+            onClick={() => addToCart(product, 1)}
+          >
+            <ShoppingBag size={15} /> Add to cart
+          </button>
+          
+          <button
+            className="quick-view"
+            onClick={() => onQuickView(product)}
+            aria-label={`Quick view ${product.name}`}
+          >
+            <ArrowUpRight size={18} />
+          </button>
+        </div>
+
+      </div>
+    </article>
+  );
+}

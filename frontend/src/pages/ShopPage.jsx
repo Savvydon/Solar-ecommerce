@@ -1,92 +1,143 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, PackageSearch } from "lucide-react";
 import { api } from "../services/api";
 import ProductCard from "../components/products/ProductCard";
 
+const FALLBACK_CATEGORIES = [
+  "Solar Panels",
+  "Inverters",
+  "Batteries",
+  "Controllers",
+  "Solar Kits",
+  "Accessories",
+];
+
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export default function ShopPage() {
-  const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [offset, setOffset] = useState(0);
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState("");
+  const [productsByCategory, setProductsByCategory] = useState({});
   const [loading, setLoading] = useState(true);
-
-  async function loadProducts({ reset = false } = {}) {
-    setLoading(true);
-    setError("");
-    const nextOffset = reset ? 0 : offset;
-    const params = new URLSearchParams({
-      offset: String(nextOffset),
-      limit: String(reset ? 24 : 50),
-    });
-    if (query.trim()) params.set("q", query.trim());
-    if (category) params.set("category", category);
-
-    try {
-      const result = await api(`/products?${params.toString()}`);
-      setProducts((current) => reset ? result.items : [...current, ...result.items]);
-      setTotal(result.total);
-      setOffset(nextOffset + result.items.length);
-    } catch (loadError) {
-      setError(loadError.message);
-      if (reset) {
-        setProducts([]);
-        setTotal(0);
-        setOffset(0);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    api("/products/categories")
-      .then(setCategories)
-      .catch(() => setCategories(["Solar Panels", "Inverters", "Batteries", "Controllers", "Solar Kits", "Accessories"]));
+    let cancelled = false;
+
+    async function loadCatalogue() {
+      setLoading(true);
+      setError("");
+      try {
+        let categoryNames;
+        try {
+          categoryNames = await api("/products/categories");
+        } catch {
+          categoryNames = FALLBACK_CATEGORIES;
+        }
+
+        categoryNames = [...new Set((categoryNames || []).filter(Boolean))];
+        if (!cancelled) setCategories(categoryNames);
+
+        const results = await Promise.all(
+          categoryNames.map(async (category) => {
+            try {
+              const params = new URLSearchParams({
+                category,
+                offset: "0",
+                limit: "4",
+              });
+              const response = await api(`/products?${params.toString()}`);
+              return [category, response];
+            } catch {
+              return [category, { items: [], total: 0 }];
+            }
+          })
+        );
+
+        if (!cancelled) {
+          setProductsByCategory(
+            Object.fromEntries(results.map(([category, result]) => [category, result]))
+          );
+        }
+      } catch (loadError) {
+        if (!cancelled) setError(loadError.message || "Unable to load product categories.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadCatalogue();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  useEffect(() => {
-    loadProducts({ reset: true });
-    // Reload the first page when the search or category filter changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, category]);
-
   return (
-    <main className="page-shell">
+    <main className="page-shell shop-overview">
       <section className="page-heading">
         <div>
           <p className="eyebrow">THE SAVVY COLLECTION</p>
-          <h1>Energy that works <em>smarter.</em></h1>
-          <p>Explore dependable solar equipment for your home, business or next installation.</p>
+          <h1>Shop by <em>category.</em></h1>
+          <p>Explore solar panels, inverters, batteries and more. Choose a category to browse its full catalogue.</p>
         </div>
-        <div className="catalogue-count">{total}<span>products</span></div>
+        <div className="catalogue-count">
+          {categories.length}<span>categories</span>
+        </div>
       </section>
 
-      <div className="catalogue-tools">
-        <label className="search-box">
-          <Search size={19} aria-hidden="true" />
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search products, brands, models…" aria-label="Search products" />
-        </label>
-        <label className="category-select">
-          <SlidersHorizontal size={17} aria-hidden="true" />
-          <select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Filter by category">
-            <option value="">All categories</option>
-            {categories.map((item) => <option key={item} value={item}>{item}</option>)}
-          </select>
-        </label>
-      </div>
+      {error && <div className="notice error" role="alert">{error}</div>}
 
-      {error && <div className="notice error" role="alert">{error}. Make sure the FastAPI backend is running.</div>}
-      <div className="product-grid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
-      {!loading && !products.length && !error && <div className="empty-state"><h3>No products found</h3><p>Try a different search or category.</p></div>}
+      {loading ? (
+        <div className="catalogue-loading" role="status">Loading product categories…</div>
+      ) : categories.length === 0 ? (
+        <div className="empty-state">
+          <PackageSearch size={34} />
+          <h3>No product categories available</h3>
+          <p>Products will appear here once they have been added to the catalogue.</p>
+        </div>
+      ) : (
+        <div className="category-sections">
+          {categories.map((category) => {
+            const result = productsByCategory[category] || { items: [], total: 0 };
+            const products = result.items || [];
+            const categoryUrl = `/shop/category/${slugify(category)}`;
 
-      <div className="load-more">
-        {offset < total && <button className="button secondary" disabled={loading} onClick={() => loadProducts()}>{loading ? "Loading…" : "Show 50 more"} <ArrowRight size={17} /></button>}
-        {loading && products.length === 0 && <p>Loading products…</p>}
-        <small>Showing {products.length} of {total} products</small>
-      </div>
+            if (!products.length && result.total === 0) return null;
+
+            return (
+              <section className="shop-category-section" key={category}>
+                <div className="shop-category-heading">
+                  <div>
+                    <p className="eyebrow">EXPLORE CATEGORY</p>
+                    <h2>{category}</h2>
+                    <p>{result.total} {result.total === 1 ? "product" : "products"} available</p>
+                  </div>
+                  <Link className="text-link category-more-link" to={categoryUrl}>
+                    Show more <ArrowRight size={17} />
+                  </Link>
+                </div>
+
+                {products.length ? (
+                  <div className="product-grid category-product-grid">
+                    {products.slice(0, 4).map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="category-empty">No products are currently available in this category.</p>
+                )}
+              </section>
+            );
+          })}
+        </div>
+      )}
     </main>
   );
 }

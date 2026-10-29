@@ -37,6 +37,7 @@ export default function Header() {
         </button>
 
         <nav className={open ? 'nav-links open' : 'nav-links'}>
+          <NavLink to="/" end onClick={close}>Home</NavLink>
           <NavLink to="/shop" onClick={close}>Shop</NavLink>
           <NavLink to="/solutions" onClick={close}>Solutions</NavLink>
           <NavLink to="/about" onClick={close}>About</NavLink>

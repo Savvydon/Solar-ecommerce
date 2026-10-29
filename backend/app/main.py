@@ -241,18 +241,13 @@ async def lifespan(app: FastAPI):
         existing_models = {row[0] for row in db.query(Product.model).all()}
         
         # Hydrate missing entries safely without altering existing product overrides
-        for name, brand, model, category, desc, price, img, stock in STARTER_PRODUCTS:
+        for product_data in STARTER_PRODUCTS:
+            # STARTER_PRODUCTS contains dictionaries, so iterate over each
+            # dictionary rather than unpacking its keys as product values.
+            model = product_data["model"]
             if model not in existing_models:
-                db.add(Product(
-                    name=name, 
-                    brand=brand, 
-                    model=model, 
-                    category=category,
-                    description=desc, 
-                    price=price, 
-                    image_url=img, 
-                    stock=stock
-                ))
+                db.add(Product(**product_data))
+                existing_models.add(model)
                 
         db.commit()
     finally:

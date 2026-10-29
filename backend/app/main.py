@@ -20,7 +20,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Panels",
         "description": "High-efficiency 550W monocrystalline panel for residential and commercial installations.",
         "price": 185000,
-        "image_url": "/products/solar-panel.svg",
+        "image_url": "/products/solar-panel.png",
         "stock": 30,
     },
     {
@@ -30,7 +30,7 @@ STARTER_PRODUCTS = [
         "category": "Inverters",
         "description": "Hybrid inverter with solar, battery and grid integration support.",
         "price": 780000,
-        "image_url": "/products/inverter.svg",
+        "image_url": "/products/inverter.jpg",
         "stock": 12,
     },
     {
@@ -40,7 +40,7 @@ STARTER_PRODUCTS = [
         "category": "Batteries",
         "description": "Expandable lithium energy storage for dependable backup power.",
         "price": 1450000,
-        "image_url": "/products/battery.svg",
+        "image_url": "/products/battery.jpg",
         "stock": 8,
     },
     {
@@ -50,7 +50,7 @@ STARTER_PRODUCTS = [
         "category": "Controllers",
         "description": "MPPT controller designed to improve solar harvesting.",
         "price": 210000,
-        "image_url": "/products/charge-controller.svg",
+        "image_url": "/products/MPPT Charge Controller 60A.jpg",
         "stock": 18,
     },
     {
@@ -60,7 +60,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "A starter bundle for a small home system. Final sizing should be professionally assessed.",
         "price": 2350000,
-        "image_url": "/products/solar-kit.svg",
+        "image_url": "/products/Home Solar Starter.jpg",
         "stock": 5,
     },
     {
@@ -70,7 +70,7 @@ STARTER_PRODUCTS = [
         "category": "Accessories",
         "description": "Essential cables, connectors and mounting accessories for installations.",
         "price": 95000,
-        "image_url": "/products/accessories.svg",
+        "image_url": "/products/solar-accessories.jpg",
         "stock": 40,
     },
     {
@@ -210,15 +210,14 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "Bundle concept for customers planning a small solar installation. Final configuration needs assessment.",
         "price": 980000,
-        "image_url": "/products/savvy1.png",
+        "image_url": "/products/Home Solar kit.jpg",
         "stock": 5,
     },
 ]
 
 
-# ==========================================================================
 # 2. Application Lifespan Events (Startup & Shutdown Seeding Operations)
-# ==========================================================================
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Ensure raw database schema entities are built out sequentially

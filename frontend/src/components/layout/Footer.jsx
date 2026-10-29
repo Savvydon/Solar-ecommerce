@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Leaf, Mail, Phone, MapPin } from 'lucide-react';
 
+import logo from '../../assets/products/savvy1.png'; // Fixed: Changed path depth to match contexts
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -10,7 +12,7 @@ export default function Footer() {
         <div>
           <Link className="brand footer-brand" to="/">
             <span className="brand-mark">
-              <Leaf />
+              <img src={logo} alt="Savvy Energy Logo" style={{ height: '25px', width: 'auto' }} />
             </span>
             <span>
               SAVVY<span className="brand-light"> ENERGY</span>

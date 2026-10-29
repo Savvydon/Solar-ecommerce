@@ -30,7 +30,7 @@ STARTER_PRODUCTS = [
         "category": "Inverters",
         "description": "Hybrid inverter with solar, battery and grid integration support.",
         "price": 780000,
-        "image_url": "/products/inverter.jpg",
+        "image_url": "/products/inverter1.jpg",
         "stock": 12,
     },
     {
@@ -60,7 +60,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "A starter bundle for a small home system. Final sizing should be professionally assessed.",
         "price": 2350000,
-        "image_url": "/products/Home Solar Starter.jpg",
+        "image_url": "/products/Home Solar Starter kit.jpg",
         "stock": 5,
     },
     {
@@ -210,7 +210,7 @@ STARTER_PRODUCTS = [
         "category": "Solar Kits",
         "description": "Bundle concept for customers planning a small solar installation. Final configuration needs assessment.",
         "price": 980000,
-        "image_url": "/products/Home Solar kit.jpg",
+        "image_url": "/products/Home Solar Starter kit.jpg",
         "stock": 5,
     },
 ]
